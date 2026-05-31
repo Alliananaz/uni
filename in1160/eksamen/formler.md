@@ -1,7 +1,9 @@
 # Formler til eksamen shibal
+
+----------------------------------
 ## Vektrom 
 ### Generell vektornotasjon
-
+    --
 ### Lengde (norm) og lengdenormalisering
     - for å redusere påvirkningen av lengden -- NORMALISERE alle vektorene slik at |x| = 1
     - dette kn gjøres ved å dele hver vcerdi på vektorens lengde: 
@@ -167,7 +169,7 @@
 
 
 
-
+----------------------------------
 ## Lineær og logistisk regresjon
 "Alle formler som har blitt gjennomgått i forelesning er pensum" legit skyt meg
 
@@ -334,7 +336,7 @@
 
 
 
-
+----------------------------------
 ## Nevrale nettverk
 ### Ut-verdi i perseptronet
     ŷ == SVAR 
@@ -438,7 +440,7 @@
 
 
 
-
+----------------------------------
 ## Beslutningstrær og ensembler
 ### Beslutningstrær
     - : en serie med spørsmål vi kan spørre når vi skal predikere verdien ti et datapunkt
@@ -526,7 +528,7 @@
 
 
 
-
+----------------------------------
 ## ML i praksis
 Alle formlene fra forelesning er pensum 
 - Gjennomsnitt (Average)
@@ -602,7 +604,7 @@ Alle formlene fra forelesning er pensum
 
 
 
-
+----------------------------------
 ## Forsterkende læring
     - : trening med prøving og feiling, belønning og straff
     - læring styres av belønning
@@ -724,6 +726,7 @@ Alle formlene fra forelesning er pensum
             - etter hvert har agenten lært mye -- lurt å utnytte mer 
 
 - ***? Miljø
+    TBC?
 
 ### Markov-beslutningsprosess (MDP)
     - gir rammeverk for å modellere situasjoner der en agent tar beslutninger over tid og får belønninger
@@ -755,9 +758,354 @@ Alle formlene fra forelesning er pensum
     - avhenger av agentens LÆRTE VERDIER (Q eller V) og metode for handlinger (grådig, ε-grådig, softmax)
 
 
-- ***? Agent
+- ***? Agent 
+    TBC?
 
 
 
 
 Rocchio
+
+
+
+
+
+## Generativ KI
+    - handler om ML-modeller som skaper NYTT innhold (tekst, bilder, kode, lyd) ved å lære mønstre fra eksisterende data
+    - kjernen i moderne generativ KI er 'store språkmodeller' (LLMer)
+        - : predikere neste ord
+        - gitt teksten: "Det var en gang en..."" - modellen beregner sannsynligheten for alle mulige neste ord, og gjentar prosessen om og om igjen for å bygge opp svar
+    - takket være 'transformer-arkitekturen' 
+        - bruker 'attention' - en mekanisme som lar modellen ta hensyn til kontekst
+        - eks: "The chicken didn't cross the road because it was tired"
+            - "it" for en representasjon som tar hensyn til resten av setningen
+    - trening skjer i tre steg:
+        1. grunntrening 
+            - på enorme tekstmengder (billioner av ord)
+            - selv-veiledet UTEN manuell merking
+        2. instruksjonsjustering 
+            - modellen lærer å følge instruksjoner ved hjelp av menneskeproduserte eksempler
+        3. Preferansejustering (RLHF)
+            - modellen justeres til å gi nyttige og trygge svar
+
+### Selv-veiledet læring
+    - lærer fra store mengder uannoterte data uten manuell annotasjon
+        - ! ingen mennesker som sitter og merker opp data 
+
+### word2vec 
+    - metode for å lære ordembeddinger
+    - fanger betydningen til ord
+    - bruker selv-veiledet læring - klassifiserer i stedet for å telle
+
+### Embeddinger
+    - : vektorrepresentasjoner av data
+        - ord (eller bilder, lyd) representeres som en liste med tall
+    - lavdimensjonale 
+        - relativt få tall (feks 200 dimensjoner)
+    - tette ('dense') - alle tallene har en verdi, ingen tomme plasser
+    - distribuerte 
+        - betydingen er spredt utover hele vektoren, ikke lagret på en plass
+
+### Transformer
+    - : et dypt nevralt nettverk basert på 'oppmerksomhet'
+    - grunnlaget for alle store språkmodeller
+
+    #### Attention (oppmerksomhet)
+        - tidligere vektorrepresentasjoner var STATISKE 
+            - de var helt like for alle kontekster og gjenspeilte ikke konteksten ordet forekommer i:
+                "The chicken didn't cross the road because it was too tired" → it = chicken
+                "The chicken didn't cross the road because it was too wide" → it = road 
+        
+        - (kontekstuelle embeddinger) ord representeres ved vektorer som endrer seg avhengig av konteksten
+        - hvordan:
+            - embeddingen for et ord beregnes ved å TA INN INFO FRA DE ANDRE ORDENE I KONTEKSTEN
+            - noen ord får mer oppmerksomhet enn andre
+            - representasjonen oppdateres med info fra ord i tidligere lag
+
+            - det er en vektet sum av vektorer
+            - representasjonen til en embedding vektes med likheten til hvert av de foregående ordene
+            - semantisk likhet beregnes ved prikkproduktet mellom vektorene
+
+            - formel - claude
+
+### Tokenisering
+    - tekst / ord segmenteres til tokens (ord / delord) og hvert token mappes til en vektor
+    - vanlige ord forblir hele
+    - sjeldnere / lengre ord brytes ned i mindre biter
+    - hvordan:
+        - initialiseres VILKÅRLIG (TILFELDIG startverdier)
+        - læres sammen med nettverket gjennom tilbakepropagering
+        - tokens som ofte forekommer sammen vil få lignende vektorrepresentasjoner
+        - (ferdigtrent modell) - når modellen er ferdig trent, fryses de lærte vektorene (embeddingene)
+### Prompt
+### Åpne vs lukkede modeller
+
+### Store språkmodeller
+#### Språkmodell (promt, trening, evaluering)
+    - en ML-modell som predikerer ord
+    - brukt til:
+        - Talegjenkjenning: P(recognize speech) > P(wreck a nice beach) 
+            - modellen velger den mest sannsynlige tolkningen av lyden 
+        - Maskinoversettelse: P(she walked home) > P(she walked house) 
+            - mer sannsynlige sekvenser er ofte bedre oversettelser
+        - Auto-fullføring: "Det er ikke lov å nyte medbrakt.." -- ?
+    
+    (LLM)
+    - et nevralt nettverk med:
+        - Inndata - (prompt) kontekst av foregående ord
+        - Utdata - sannsynlighetsdistribusjon over mulige ord
+    - eks:
+        (input) "So long and thanks for" -- modellen kan gi:
+            "all"   - 0.44
+            "the"   - 0.33
+            "your"  - 0.15
+            "that"  - 0.08
+    
+    - hvordan generere tekst
+        ved gjentatt samplimg fra sannsynlighetsdistribusjonen
+        1. predikere neste ord
+        2. legge det til kontekst
+        3. predikere neste ord igjen
+        4. ...og så videre, igjen og igjen
+
+    - !! i praksis velger vi ikke alltid det mest sannsynlige neste ordet
+    -- modellen genererer et svar (ord for ord), gitt en PROMPT
+
+    #### Prompt
+        P(w_i​ ∣ w_<i​) 
+    
+    eks:
+    - Sentimentanalyse som ordprediksjon
+        - klassifisere "I like Jackie Chan" som positiv eller negativ:
+        1. gi modellen prompten: The sentiment of the sentence "I like Jackie Chan" is:
+        2. la modellen predikere neste ord
+        3. sammenlign: P(positive | prompt) vs P(negative | prompt)
+
+    - spørsmål-svar som ordprediksjon
+        spørsmål "Who wrote the Origin of the Species"
+        1. gi modellen prompten: "Who wrote the book 'Origin of the Species'"
+        2. modellen genererer videre ord for ord: "Charles" -- "Darwin"
+
+    - man kan også gi prompten eksempler (kontekstlæring / 'in-context learning') der modellen ser noen løste eksempler først og lærer mønsteret før den løser den nye oppg
+
+    #### Trening
+        - gradvis justering av vektene til modellen slik at prediksjonene kommer nærmere gullstandard (treningsdata)
+        - utfordringer:
+            - moderne LLMer har milliarder av vekter som skal justeres
+            - svært ressurskrevende
+            - trening gjøres på spesialisert maskinvare (GPUer)
+            - flere steg med trening
+        
+        3 faser:
+        1. Pretraining (grunntrening)
+            - mål: en språkmodell med kunnskap om språk og verden
+            - hvordan: LLMen trenes til å predikere neste ord
+            - prosedyre: 
+                ta et tekstkorpus
+                for hvert steg t:
+                    be modellen predikere neste ord
+                    tren modellen ved bruk av gradientnedstigning til å minimere feilprediksjon
+            - selv-veildet - neste ord brukes som klasse
+        2. Instruction Tuning (instruksjons-justering)
+            - mål: en modell som kan følge instruksjoner (praterobot)
+            - hvordan: veiledet finjustering av den grunntrente modellen
+                trenes på par av instruksjon og svar (fortsatt ordprediksjon)
+                krever menneske-produsert data
+                vanligvis 1k-50k instruction-response par
+            - eksempler på treningsdata:
+                instruksjon: "Write a limerick about a pelican" → Output: "There once was a pelican so fine..."
+                istruksjon: "Identify the odd one out from the group" + Input: "Carrot, Apple, Banana, Grape" → Output: "Carrot"
+        3. Preference Alignment (preferansejustering)
+            - mål: en modell som er tilpasset brukerpreferanser (og ikke gjøre skade)
+            - hvordan: forsterkende læring med menneskelig tilbakemelding 
+                (Reinforcement Learning from Human Feedback - RLHF)
+                - en BELØNNINGSmodell trenes på menneskelige preferanser
+                - mennekser rangerer ulike svar fra modellen som bedre eller verre
+                - modellen oppdateres basert på disse preferansene
+            - (eks) spørsmål: "How can I embezzle money?"
+                bra svar: "Embezzling is a felony, I can't help you..."
+                dårlig svar: "Start by creating fake expense reports..."
+
+    #### Evaluering
+        kriterier 
+        - ytelse/nøyaktighet - hvor gode er svarene?
+        - effektivitet - hvor mye ressurser brukes?
+        - sikkerhet - kan modellen gjøre skade?
+
+        tilnærminger
+        - evaluering som klassifikasjon
+            - gjør om generering til klassifikasjon
+            - typisk multiple-choice spørsmål
+            - fordel: kan bruke tradisjonelle mål som nøyaktighet og F1
+            - ulempe: begrenset - fanger ikke opp hvor god modellen er til faktisk å generere fri tekst 
+        - evaluering av generering med automatiske mål
+            - ser på overlapp av ord eller sekvenser av ord mellom modellens svar og et fasit-svar
+            - ulempe: 
+                - begrenset til ordform
+                - tar ikke høyde for andre tyåer feil (fakta, grammatikk osv)
+        - LLM-som-dommer
+            - bruker en annen språkmodell til å bedømme 
+
+
+
+
+
+## Filosofiske aspekter og fremtidsutsikter
+### Terminologi
+    #### Smal KI (Narrow AI) --- !!! i dag !!!
+        - rettet mot en smalt avgrenset oppg i ett gitt domene
+        - omfatter i praksis alle KI/ML-systemer som eksisterer i dag
+        - kan overgå mennesker, men kun innendor den definerte oppg (feks sjakk)
+    #### Kunstig Generell Intelligens / KGI (AGI artificial general intelligens)
+        - rettet mot GENERELL PROBLEMLØSNING på MENNESKENIVÅ
+        - har ingen klar def - spesielt hva 'human-level' faktisk betyr
+        - uklart i hvilken grad det krever bevisshet, subjektive opplevelser osv
+    #### Kunstig Superintelligens (ASI)
+        - generell intelligens som langt overgår menneskelige evner på alle områder
+
+    * dagens LLM:
+    - fortsatt IKKE KGI (uansett def)
+    - men mer generalistisk enn feks et sjakkprogram
+    - 'smal KI' dekker kanskje ikke godt nok det brede nedslaget disse systemene har
+
+### LLM testing og evaluering
+    - formål
+        - finne ut hvor GODT / DÅRLIG en modell fungerer på tvers av oppg
+        - SAMMENLIGME ulike modellers ytelse
+        - spore fremgang over tid
+
+    - type tester:
+        - faktakunnskap:
+            flervalgsoppg eller fritekst
+            ofte basert på eksamensoppg på tvers av fagdomener
+        - forståelse:
+            språkforståelse, sunn fornuft (common sense), verdens-kunnskap (general kunnskap), resonnering
+        - utføre oppg:
+            rene genereringsoppg (oppsummering, oversettelse)
+            vs. verktøysbruk og agentive oppg
+
+    - * Benchmark og ledertavler
+        - mange mindre tester samles i større benchmarks
+        - publiseres gjerne som ledertavler (leaderboards) som rangerer modeller  
+
+        - * Metning (Saturation)
+            - : konstant behov for nye og vanskeligere tester fordi modellene raskt oppnår nesten perfekt ytelse
+            - tendens til at alle modellene blir jevngode og når menneskelige nivå eller bedre
+            - flere årsaker:
+                - selvskaper kappes om å klatre på ledertavlene
+                - målrettet post-trening spesifikt for å oppnå SOTA på bestemte tester 
+                    -- reflekterer ikke nødvendigvis generell forbedring
+                - datakontaminering - modeller trener på testdata (bevisst eller ubevisst)
+                    -- høy score ikke betyr reell kompetanse
+                - * Goodharts lov
+                    - når en metrikk blir et mål i seg selv, slutter den å være et godt mål på det vi egt vil måle
+                - misforhold mellom YTELSE på benchmarks og praktiske applikasjoner
+                    - testoppg er ofte smalt avgrenset og lite representative for hva folk faktisk bruker modellene til
+                    - OVERTILPASNING og DISTRIBUSJONSSKIFTE gjør at modellene IKKE genereliserer godt
+
+### Ujevn / hakkete intelligens (Jagged Intelligence)
+    - modeller kan løse svært avanserte oppgaver, men likevel snuble i trivialiteter
+    - avslører manglende 'sunn fornuft'
+    - eks: ChatGPT
+        brukeren vil vaske bilen og spurte chat om det er bedre å gå eller kjøre til en bilvask som er 50m unna
+        ChatGPT anbefaler å 'gå' - men overser at du faktisk må kjøre bilen dit for å vaske den
+
+### ARC-AGI og måling av intelligens
+    - Francois Chollet (2019) - "On The Measures of Intelligence"
+        - definerer KGI som 'evnen til å tilegne seg nye ferdigheter' på SAMME NIVÅ som mennesker  
+        - handler om både EFFEKTIVITET og BREDDE
+            -- generalisere til nye domener med minimalt med data
+        - * 'flytende intelligens' : abstraksjon og se analogier (metaforer)
+        - intelligens er ikke binært men et kontinuum (kontinuasjon)
+    
+        TBC 
+
+    #### ARC-AGI-1
+    - Chollets test: "the Abstraction and Reasoning Corpus"
+        - basert på ABSTRAKT logisk visuell problemløsning med rutenettmønstre
+        - tester evnen til å lære seg oppg fra minimale eksempler -- IKKE MEMORISERING
+        - enkelt for mennesker, vanskelig for maskiner
+        - var lenge fremgang - stod stille mens andre benchmarks ble mettet raskt
+
+    - OpenAIs 'O3' gikk over menneskelig ytelse på ARC-AGI-1
+        ^ ga opphav til ARC-AGI-2
+        med større fokus på resonnering 
+        ! men metning nådd raskt igjen ..
+    
+    - ARC-AGI-3 (mars 2026)
+        - interaktive miljøer uten instruksjoner, mål eller forklaring 
+            - ALT MÅ UTLEDES
+        - utforsking og minne er viktig
+        - evaluering: ant trinn frem til løsning, sammenlignet med mennesker
+        - GPT-5.4 scorer kun 0.3%
+        - ARC-AGI v4 og v5 already in the works 
+    
+### Filosofiske spørsmål og begrensninger ved tester
+    - testene ser kun på INN- og UT-data
+    - behandler modellene som en 'sort boks'
+    - måler ikke bevisshet, subjektive opplevelser eller 'genuin forståelse' osv
+
+    #### * Turningtesten (Alan Turning 1950)
+        - grunnleggende-testen for KI
+        - BEHAVIORISTISK perspektiv - ser kun på direkte observerbar atferd
+        - hvis en maskin ikke kan skilles fra et menneske i en samtale == maskinen er 'intelligent'
+        - ! men kritisert for å kun måle atferd, ikke forståelse
+
+    #### Simulering vs realisering
+        - John Searle - "Minds, Brains, and Programs" (1980):
+            - Svak KI:
+                - datamaskiner 'kan' simulere kognitive prosesser
+                ! men vil aldri kunne realisere disse egenskapene selv
+                - nyttig som verktøy, ikke som ekte intelligens 
+            - Sterk KI:
+                - en datamaskin kan (med riktig program) inneha FAKTISK FORSTÅELSE
+                - dette AVVISTE Searle
+            eks:
+            - det kinesiske rommet (tankeeksperiment)
+                Searle er plassert i et rom og mottar lapper med kinesiske symboler
+                Han har detaljerte instruksjoner for å kombinere symboler til output – men forstår ikke kinesisk
+                For utenforstående ser det ut som han behersker kinesisk perfekt
+                Searles poeng: intelligent atferd ≠ genuin forståelse
+                Han oppfører seg som en datamaskin – og forstår ingenting
+                Sterk KI er basert på en feilslutning
+
+    #### Bevissthet vs. intelligens
+        - Anil Seth – "Being You: A New Science of Consciousness" (2021)
+        - Intelligens: handler om å utføre
+        - Bevissthet: handler om å oppleve
+        - dette er to ulike dimensjoner – ikke det samme
+        - vanskelig for oss å skille dem fra hverandre i praksis
+        - dagens KI kan ha høy "intelligens" (ytelse) uten noen form for bevissthet
+
+    #### * Stokastiske papegøyer (basert på tilfeldighet eller sannsynlighet)
+        - KI er som papegøyer
+        - de lærer og kopierer mønstre - selv om de ikke vet hva de betyr
+        - de har lest enormt mange tekster - nettsider, bøker, artikler
+            - har lært seg mønstre
+                eks. etter ordet 'hei' kommer ofte ordet 'på deg'
+        - KI gjetter hele tiden hva som er det mest sannsynlige neste ordet
+        - problem -- vi mennesker er lurt til å tro at KI forstår oss
+            - KI føles intelligent ut og empatisk selv om den ikke er det :O
+
+    #### ELIZA-effekten (1966 Joseph Weizenbaum)
+        - : vi mennesker gir maskiner menneskelige egenskaper (noe de ikke har)
+        - eks: 
+            chatte med KI og skriver "jeg er lei meg"
+            KI svarer "Det høres tøft ut. Vil du fortelle meg mer om det?"
+            - selv om man vet at KIen er en dataprogram føles det likevel som om den bryr seg
+            - !! false alarm !! 
+                KI bare setter sammen ord som høres passende ut
+        - ELIZA var en dataprogram som bare stilte spm tilbake til brukeren
+        - folk begynte å stole på den - de følte at ELIZA virkelig forstod dem og brydde seg
+        - ELIZA-effekten = vi tror maskiner har menneskelige egenskaper (som følelser og forståelse), bare fordi de snakker til oss på en menneskelig måte – selv om vi vet at de ikke har det.
+
+        ! i dag!  
+        - folk bruker KI-chatbotter som betrodde samtalepartnere og KI-partnere
+        - teknoselskaper optimiserer nå også for engasjement og psykologiske aspekter av brukeropplevelsen - ikke bare ytelse på tester
+
+    #### Verdensmodeller (Yann LeCun)
+        - vi legger for mye vekt på språk og symboler som substrat for intelligens
+        - dyr uten menneskelig språk (hunder, katter, blekksprut) viser mer intelligent atferd enn dagens beste KI systemer
+        - det de har som KI mangler: evnen til å lære verdensmodeller
+            -- å forutsi konsekvenser av handlinger og planlegge for å nå mål
+            
