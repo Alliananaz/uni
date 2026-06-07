@@ -12,11 +12,11 @@
 Datasett → [Treningssett 70%] [Valideringssett 15%] [Testsett 15%]
 ```
 
-| Sett | Brukt til |
+| Sett                  | Brukt til |
 |---|---|
-| Treningssett | Læring av parametere (`w`, `b`) |
-| Valideringssett | Tuning av hyperparametere |
-| Testsett | Endelig evaluering (kun én gang!) |
+| Treningssett          | Læring av parametere (`w`, `b`) |
+| Valideringssett       | Tuning av hyperparametere |
+| Testsett              | Endelig evaluering (kun én gang!) |
 
 **Viktig:** Testsett må aldri brukes til å ta designvalg – da "lekker" informasjon.
 
@@ -33,10 +33,10 @@ Datasett → [Treningssett 70%] [Valideringssett 15%] [Testsett 15%]
 Forventet feil = Bias² + Varians + Irreducibel støy
 ```
 
-| Problem | Symptom | Løsning |
+| Problem                       | Symptom                           | Løsning |
 |---|---|---|
-| Høy bias (underfitting) | Dårlig på trening OG test | Mer kompleks modell |
-| Høy varians (overfitting) | Bra på trening, dårlig på test | Regularisering, mer data |
+| Høy bias (underfitting)       | Dårlig på trening OG test         | Mer kompleks modell |
+| Høy varians (overfitting)     | Bra på trening, dårlig på test    | Regularisering, mer data |
 
 ---
 
@@ -95,11 +95,11 @@ Optimal η → rask og stabil konvergens
 
 ## Batchtyper
 
-| Type | Beskrivelse |
+| Type                  | Beskrivelse |
 |---|---|
-| Batch GD | Hele datasettet per oppdatering |
-| Mini-batch GD | Delmengde per oppdatering (vanligst) |
-| Stochastic GD (SGD) | Én prøve per oppdatering |
+| Batch GD              | Hele datasettet per oppdatering |
+| Mini-batch GD         | Delmengde per oppdatering (vanligst) |
+| Stochastic GD (SGD)   | Én prøve per oppdatering |
 
 ---
 

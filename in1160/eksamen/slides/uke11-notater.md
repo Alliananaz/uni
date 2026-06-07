@@ -35,11 +35,11 @@
 
 ### Sammenligning med one-hot
 
-| Egenskap | One-hot | Embedding |
+| Egenskap          | One-hot                   | Embedding |
 |---|---|---|
-| Dimensjonalitet | = vokabularstørrelse | Mye lavere (e.g. 100–1000) |
-| Tetthet | Sparse (én 1, resten 0) | Dense (mange ikke-null verdier) |
-| Semantisk likhet | Nei | Ja (nærliggende ord → nærliggende vektorer) |
+| Dimensjonalitet   | = vokabularstørrelse      | Mye lavere (e.g. 100–1000) |
+| Tetthet           | Sparse (én 1, resten 0)   | Dense (mange ikke-null verdier) |
+| Semantisk likhet  | Nei                       | Ja (nærliggende ord → nærliggende vektorer) |
 
 ---
 
@@ -87,12 +87,12 @@ Attention(Q, K, V) = softmax(QKᵀ / √dₖ) × V
 
 ## Generative modeller
 
-| Modell | Prinsipp |
+| Modell                | Prinsipp |
 |---|---|
-| VAE | Encoder-decoder, latent rom |
-| GAN | Generator vs. diskriminator |
-| Diffusjonsmodell | Fjern støy steg for steg |
-| GPT (autoregressive) | Prediker neste token |
+| VAE                   | Encoder-decoder, latent rom |
+| GAN                   | Generator vs. diskriminator |
+| Diffusjonsmodell      | Fjern støy steg for steg |
+| GPT (autoregressive)  | Prediker neste token |
 
 ---
 

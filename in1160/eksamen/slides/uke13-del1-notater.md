@@ -12,12 +12,12 @@
 - Mislykkes på oppgaver som er trivielle for mennesker
 
 ### Eksempler
-| Oppgave | Menneskelig vanskelighetsgrad | AI-vanskelighetsgrad |
+| Oppgave                                           | Menneskelig vanskelighetsgrad     | AI-vanskelighetsgrad |
 |---|---|---|
-| Sjakk på stormesternivå | Veldig vanskelig | Lett (AI dominerer) |
-| Forstå at et bilde er opp-ned | Trivielt | Kan feile |
-| Avansert matematikk | Vanskelig | Variabelt |
-| "Er dette bildet tatt innendørs eller utendørs?" | Trivielt | Kan feile |
+| Sjakk på stormesternivå                           | Veldig vanskelig                  | Lett (AI dominerer) |
+| Forstå at et bilde er opp-ned                     | Trivielt                          | Kan feile |
+| Avansert matematikk                               | Vanskelig                         | Variabelt |
+| "Er dette bildet tatt innendørs eller utendørs?"  | Trivielt                          | Kan feile |
 
 **Q25: Forklar jagged intelligence – AI utmerker seg på vanskelige oppgaver men mislykkes på enkle**
 
