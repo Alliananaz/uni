@@ -1,0 +1,14 @@
+.details {
+    width: 600px;
+    flex-shrink: 0;
+}
+
+.details table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.details td,
+.details th {
+    overflow-wrap: anywhere;
+}
